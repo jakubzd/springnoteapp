@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -16,8 +17,7 @@ public class RoleService {
     }
 
     public Role getRoleById(Long id) {
-        return roleRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Long.toString(id)));
+        return roleRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     public void save(Role role) {
@@ -26,5 +26,9 @@ public class RoleService {
 
     public void delete(Role role) {
         roleRepository.delete(role);
+    }
+
+    public Role findRoleByName(String name) {
+        return roleRepository.findRoleByName(name);
     }
 }

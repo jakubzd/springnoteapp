@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "role_name"))
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,8 @@ public class Role {
 
     @Column(name = "role_name")
     private String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

@@ -2,15 +2,19 @@ package com.example.springproject.category;
 
 import com.example.springproject.note.Note;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "CATEGORIES")
 public class Category {
@@ -19,35 +23,32 @@ public class Category {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
-    private String categoryName;
+    @Column(name = "cat_name")
+    private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
+    @ToString.Exclude
     private Set<Note> notes = new HashSet<>();
 
-
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Category category = (Category) o;
+        return id != null && Objects.equals(id, category.id);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public void addNote(Note note) {
+        this.notes.add(note);
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Set<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Set<Note> notes) {
-        this.notes = notes;
+    public void removeNote(Note note) {
+        this.notes.remove(note);
     }
 }

@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
     <h1>Add new note</h1>
-    <form action="#" th:action="@{/notes/add}" th:object="${note}" method="post">
-        <p>Note: <input type="text" th:field="${note.body}" /><span class="alert alert-primary"></span></p>
-        <span>
-             <select class="form-select form-select-lg mb-md-3" th:field="${note.category.name}">
-             <option value="">select category</option>
-             <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
+<!--    <form action="#" th:action="@{/notes/add}" th:object="${note}" method="post">-->
+<!--        <p>Note: <input type="text" th:field="${note.body}" /><span class="alert alert-primary"></span></p>-->
+<!--        <span>-->
+<!--             <select class="form-select form-select-lg mb-md-3" th:field="${note.category.name}">-->
+<!--             <option value="">select category</option>-->
+<!--             <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>-->
+<!--            </select>-->
+<!--        </span><span class="alert alert-primary"></span>-->
+<!--        <p><input type="submit" value="Add" /> </p>-->
+<!--    </form>-->
+
+        <form action="#" th:action="@{/notes/add}" th:object="${note}" method="post">
+            <p>Note: <input type="text" th:field="${note.body}" /></p>
+
+            <select class="form-select" style="width: auto" th:field="${note.category.name}">
+                <option value="">select category</option>
+                <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
             </select>
-        </span><span class="alert alert-primary"></span>
-        <p><input type="submit" value="Add" /> </p>
-    </form>
+
+            <p><input type="submit" value="Add" /> </p>
+        </form>
+
 </div>
 </body>
 </html>

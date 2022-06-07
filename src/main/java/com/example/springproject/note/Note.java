@@ -1,13 +1,14 @@
 package com.example.springproject.note;
 
 import com.example.springproject.category.Category;
+import com.example.springproject.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,30 +20,21 @@ public class Note {
     @Column(name = "id", nullable = false)
     private long id;
 
+    @Column(name = "body")
     private String body;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //CascadeType.ALL deletes related in this case Category from database.
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    public long getId() {
-        return id;
-    }
+    private LocalDateTime dateOfPost;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public String getCategoryName() {
+        return this.category.getName();
     }
 }

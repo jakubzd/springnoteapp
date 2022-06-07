@@ -1,16 +1,18 @@
 package com.example.springproject.note;
 
+
 import com.example.springproject.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+
 
 @Service
 public class NoteService {
 
     private final NoteRepository noteRepository;
-
     private final CategoryRepository categoryRepository;
 
     @Autowired
@@ -23,17 +25,17 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    /*
-     * TODO: getNote Error handling when no such categoryId.
-     */
-    public Note getNote(Long noteId) {
-        return noteRepository.findById(noteId).get();
+    public Note getNote(Long id) {
+        return noteRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Long.toString(id)));
     }
 
-    public void saveNote(Note note) {
+    public void save(Note note) {
         noteRepository.save(note);
-        categoryRepository.findById(note.getCategory().getId());
+    }
 
+    public void delete(Long id) {
+        noteRepository.deleteById(id);
     }
 
 }
