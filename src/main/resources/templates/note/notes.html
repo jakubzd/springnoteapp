@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <h1>My notes</h1>
+    <div th:each="note: ${notes}" class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${note.getCategoryName()}"></h5>
+            <p class="card-text"th:text="${note.body}"></p>
+            <p class="card-text"th:text="${note.dateOfPost}"></p>
+            <a th:href="@{/notes/{id}(id=${note.id})}" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+    <a th:href="@{/notes/add}" class="btn btn-info" role="button">Add note</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Categories</h1>
+    <div th:each="category : ${categories}">
+        <button type="button" class="btn btn-primary position-relative">
+            [[${category.name}]]
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            [[${category.notes.size()}]]
+             <span class="visually-hidden">Notes</span>
+            </span>
+        </button>
+        <a th:href="@{/categories/{id}(id = ${category.id})}" class="btn btn-primary" role="button"> </a>
+    </div>
+    <a th:href="@{/categories/add}" class="btn btn-info" role="button">Add category</a>
+</body>
+</html>

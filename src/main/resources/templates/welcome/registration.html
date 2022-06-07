@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered!</div>
+            </div>
+            <form th:action="@{/registration}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label class="control-label" for="firstName">
+                        First Name
+                    </label>
+                    <input id="firstName" class="form-control" th:field="${user.firstName}" required autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="lastName">
+                        Last Name
+                    </label>
+                    <input id="lastName" class="form-control" th:field="${user.lastName}" required autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="email">
+                        Email
+                    </label>
+                    <input id="email" class="form-control" th:field="${user.email}" required autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">
+                        Password
+                    </label>
+                    <input id="password" class="form-control" th:field="${user.password}" type="password"
+                           required autofocus="autofocus"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/" th:href="@{/login}">Login</a> </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
