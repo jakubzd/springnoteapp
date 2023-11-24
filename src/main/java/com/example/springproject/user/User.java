@@ -1,5 +1,6 @@
 package com.example.springproject.user;
 
+import com.example.springproject.dto.UserRegistrationDto;
 import com.example.springproject.note.Note;
 import com.example.springproject.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;

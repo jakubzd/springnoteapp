@@ -27,7 +27,7 @@ public class CategoryController {
 
     @GetMapping("/{categoryId}")
     public String getNoteDetails(@PathVariable Long categoryId, Model model) {
-        Category category = categoryService.getCategory(categoryId);
+        Category category = categoryService.getCategoryById(categoryId);
         model.addAttribute("note", category);
         model.addAttribute("categoryNotes", category.getNotes());
         return "category/category_notes";

@@ -25,7 +25,7 @@ public class NoteController {
     private final UserService userService;
 
     @Autowired
-    public NoteController(NoteService noteService, CategoryService categoryService, UserService userService, UserRepository userRepository) {
+    public NoteController(NoteService noteService, CategoryService categoryService, UserService userService) {
         this.noteService = noteService;
         this.categoryService = categoryService;
         this.userService = userService;

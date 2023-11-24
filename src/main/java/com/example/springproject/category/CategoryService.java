@@ -29,28 +29,22 @@ public class CategoryService {
 
     }
 
-    /**
-    TO DO
-     Error handling when no such categoryId.
-     **/
-    public Category getCategory(Long categoryId) {
-        return categoryRepository.findById(categoryId).get();
+    public Category getCategoryById(final long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow( () ->
+                new EntityNotFoundException("Entity with id: " + categoryId + " not found."));
     }
 
-    public void addNoteToCategory(Category category, Note note) {
+    public void addNoteToCategory(final Category category, final Note note) {
         category.addNote(note);
     }
 
-    public Category getCategoryByCategoryName(String name) {
+    public Category getCategoryByCategoryName(final String name) {
         return categoryRepository.findCategoryByName(name);
     }
 
-    public void removeNoteFromCategory(Note note) {
-        Optional<Category> category = categoryRepository.findById(note.getCategory().getId());
-        if(category.isEmpty()) {
-            throw new EntityNotFoundException(note.getCategoryName());
-        }
-        category.get().removeNote(note);
+    public void removeNoteFromCategory(final Note note) {
+        final Category category = getCategoryById(note.getCategory().getId());
+        category.removeNote(note);
     }
 
 
