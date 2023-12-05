@@ -1,7 +1,9 @@
 package com.example.springproject.user;
 
 import com.example.springproject.dto.UserRegistrationDto;
+import com.example.springproject.factory.BeanFactory;
 import com.example.springproject.note.Note;
+import com.example.springproject.response.UserResponse;
 import com.example.springproject.role.Role;
 import com.example.springproject.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,13 +29,16 @@ public class UserServiceImpl implements UserService {
 
     private final BCryptPasswordEncoder encoder;
 
+    private final BeanFactory factory;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           @Lazy BCryptPasswordEncoder encoder) {
+                           @Lazy BCryptPasswordEncoder encoder, BeanFactory factory) {
         super();
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
+        this.factory = factory;
     }
 
     @Override
@@ -70,6 +72,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserResponse> getAll() {
+        return factory.userResponses(userRepository.findAll());
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         if (user == null) {
@@ -82,6 +89,4 @@ public class UserServiceImpl implements UserService {
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
-
-
 }
