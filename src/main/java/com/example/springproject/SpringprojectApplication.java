@@ -10,10 +10,7 @@ import java.util.Arrays;
 public class SpringprojectApplication {
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(SpringprojectApplication.class, args);
-
-        System.out.println("Let's inspect the beans provided by Spring Boot:");
-
+        SpringApplication.run(SpringprojectApplication.class, args);
     }
 
 }
